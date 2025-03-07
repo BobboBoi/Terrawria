@@ -1,0 +1,9 @@
+ITEMS:
+holding event
+
+TILES
+Screen enter event
+Player Colliding event:
+    Called when player is colliding with tile
+    Should receive player and tileposition
+    Keep loaded until player stops colliding for optimization

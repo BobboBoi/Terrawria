@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbtfyhup7l0oa"]
+
+[ext_resource type="Script" path="res://Scripts/OLD/RigidBody2D.gd" id="1_p52ti"]
+[ext_resource type="Texture2D" uid="uid://dshw6sy4yw2q1" path="res://icon.svg" id="2_hxj51"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5k262"]
+bounce = 0.38
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pyevl"]
+radius = 8.0
+
+[node name="RigidBody2D" type="RigidBody2D"]
+position = Vector2(-32, -15)
+physics_material_override = SubResource("PhysicsMaterial_5k262")
+script = ExtResource("1_p52ti")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("2_hxj51")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pyevl")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)

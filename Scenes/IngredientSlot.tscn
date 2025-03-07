@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://vw6yifpx0uon"]
+
+[ext_resource type="Texture2D" uid="uid://bpcl6e832hyx6" path="res://Sprites/Ui/Inventory_Back.png" id="1_kgsaj"]
+[ext_resource type="Script" path="res://Scripts/Player/IngredientSlot.gd" id="2_et8p3"]
+[ext_resource type="PackedScene" uid="uid://bt4w5pjx51yjq" path="res://Scenes/Items/Item.tscn" id="3_1iggx"]
+[ext_resource type="Texture2D" uid="uid://bnssr1t7bpbo2" path="res://Sprites/Items/Item_2.png" id="4_bop5h"]
+
+[node name="Panel1" type="TextureRect"]
+custom_minimum_size = Vector2(40, 40)
+texture = ExtResource("1_kgsaj")
+expand_mode = 1
+script = ExtResource("2_et8p3")
+
+[node name="Item" parent="." instance=ExtResource("3_1iggx")]
+layout_mode = 1
+anchor_left = -0.1
+anchor_top = -0.1
+anchor_right = 0.1
+anchor_bottom = 0.1
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 36.0
+offset_bottom = 36.0
+grow_horizontal = 1
+grow_vertical = 1
+texture = ExtResource("4_bop5h")
+type = "Block"

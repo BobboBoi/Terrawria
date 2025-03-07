@@ -1,0 +1,493 @@
+[gd_scene load_steps=19 format=3 uid="uid://cabqakbfmtkgw"]
+
+[ext_resource type="Script" path="res://Scenes/Hair.gd" id="1_at0ay"]
+[ext_resource type="Texture2D" uid="uid://drlyuaeejc6w4" path="res://Background_0.png" id="1_udsfe"]
+[ext_resource type="Texture2D" uid="uid://c7kx0loflmyrt" path="res://Sprites/Player/Player_0_0.png" id="2_bsiql"]
+[ext_resource type="Texture2D" uid="uid://c47md8afj05mv" path="res://Sprites/Player/Player_Hair_1.png" id="3_hk3fu"]
+[ext_resource type="Texture2D" uid="uid://bddo52itrqb84" path="res://Sprites/Player/Player_0_1.png" id="4_ax8lr"]
+[ext_resource type="Texture2D" uid="uid://do7smsk6gntr8" path="res://Sprites/Player/Player_0_2.png" id="5_26kpe"]
+[ext_resource type="Texture2D" uid="uid://dhtcjp0gm5bs0" path="res://Sprites/Player/Player_0_8.png" id="6_fo86v"]
+[ext_resource type="Texture2D" uid="uid://cmodqm6xfg66t" path="res://Sprites/Player/Player_0_9.png" id="7_b5mgb"]
+[ext_resource type="Texture2D" uid="uid://dmkprbhoej265" path="res://Sprites/Player/Player_0_6.png" id="8_kpjga"]
+[ext_resource type="Texture2D" uid="uid://cp23awm51w1k2" path="res://Sprites/Player/Player_0_7.png" id="9_js6vs"]
+[ext_resource type="Texture2D" uid="uid://ck0cnbo1cflg7" path="res://Sprites/Player/Player_0_11.png" id="10_ry2ho"]
+[ext_resource type="Texture2D" uid="uid://bkf28huhhrllm" path="res://Sprites/Player/Player_0_12.png" id="11_mi3uc"]
+[ext_resource type="AudioStream" uid="uid://dkf6w22r2os8n" path="res://Music/51 Unknown.wav" id="12_ocvj0"]
+[ext_resource type="Texture2D" uid="uid://dfiudo2cxails" path="res://Sprites/Ui/Logo.png" id="14_ocd77"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irskc"]
+bg_color = Color(1, 0.0627451, 0, 1)
+
+[sub_resource type="Animation" id="Animation_c0bkn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Title:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_o7hcj"]
+resource_name = "Title"
+length = 16.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4, 8, 12),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.174533, 0.0, -0.174533]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Title:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4, 8, 12),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.25, 1.25), Vector2(1, 1), Vector2(1.25, 1.25)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j17dw"]
+_data = {
+"RESET": SubResource("Animation_c0bkn"),
+"Title": SubResource("Animation_o7hcj")
+}
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CharacterCreator" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CharacterCreator"]
+texture_repeat = 2
+offset_top = -189.0
+offset_right = 1924.0
+offset_bottom = 1211.0
+texture = ExtResource("1_udsfe")
+
+[node name="Hair" type="Panel" parent="CharacterCreator"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -174.0
+offset_top = -109.0
+offset_right = 175.0
+offset_bottom = 109.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("1_at0ay")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CharacterCreator/Hair"]
+layout_mode = 0
+offset_right = 349.0
+offset_bottom = 218.0
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="CharacterCreator/Hair/ScrollContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 3000)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = -1500
+columns = 6
+
+[node name="PlayerPre" type="Control" parent="CharacterCreator"]
+layout_mode = 3
+anchor_left = 0.492708
+anchor_top = 0.309259
+anchor_right = 0.513542
+anchor_bottom = 0.346296
+offset_right = 6.10352e-05
+size_flags_horizontal = 4
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Head" type="Sprite2D" parent="CharacterCreator/PlayerPre" groups=["Skin"]]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(20, 20)
+texture = ExtResource("2_bsiql")
+region_enabled = true
+region_rect = Rect2(0, 0, 40, 40)
+metadata/_edit_lock_ = true
+
+[node name="Hair" type="Sprite2D" parent="CharacterCreator/PlayerPre" groups=["Hair"]]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(20, 20)
+texture = ExtResource("3_hk3fu")
+region_enabled = true
+region_rect = Rect2(0, 0, 40, 40)
+metadata/_edit_lock_ = true
+
+[node name="Eye" type="Sprite2D" parent="CharacterCreator/PlayerPre"]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(20, 20)
+texture = ExtResource("4_ax8lr")
+region_enabled = true
+region_rect = Rect2(0, 0, 40, 40)
+metadata/_edit_lock_ = true
+
+[node name="Pupil" type="Sprite2D" parent="CharacterCreator/PlayerPre" groups=["Eye"]]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(20, 20)
+texture = ExtResource("5_26kpe")
+region_enabled = true
+region_rect = Rect2(0, 560, 40, 40)
+metadata/_edit_lock_ = true
+
+[node name="HandB" type="Sprite2D" parent="CharacterCreator/PlayerPre" groups=["Skin"]]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(27, 40)
+texture = ExtResource("7_b5mgb")
+region_enabled = true
+region_rect = Rect2(88, 36, 10, 8)
+metadata/_edit_lock_ = true
+
+[node name="ArmB" type="Sprite2D" parent="CharacterCreator/PlayerPre" groups=["Accent"]]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(26, 32)
+texture = ExtResource("6_fo86v")
+region_enabled = true
+region_rect = Rect2(88, 24, 8, 12)
+metadata/_edit_lock_ = true
+
+[node name="Body" type="Sprite2D" parent="CharacterCreator/PlayerPre" groups=["Clothes"]]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(20, 22)
+texture = ExtResource("8_kpjga")
+region_enabled = true
+region_rect = Rect2(0, 2, 40, 40)
+metadata/_edit_lock_ = true
+
+[node name="HandF" type="Sprite2D" parent="CharacterCreator/PlayerPre" groups=["Skin"]]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(13, 34)
+texture = ExtResource("9_js6vs")
+region_enabled = true
+region_rect = Rect2(88, 24, 10, 20)
+metadata/_edit_lock_ = true
+
+[node name="ArmF" type="Sprite2D" parent="CharacterCreator/PlayerPre" groups=["Accent"]]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(12, 30)
+texture = ExtResource("6_fo86v")
+region_enabled = true
+region_rect = Rect2(88, 24, 8, 12)
+metadata/_edit_lock_ = true
+
+[node name="Legs" type="Sprite2D" parent="CharacterCreator/PlayerPre" groups=["Legs"]]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(21, 48)
+texture = ExtResource("10_ry2ho")
+region_enabled = true
+region_rect = Rect2(12, 42, 18, 12)
+metadata/_edit_lock_ = true
+
+[node name="Shoes" type="Sprite2D" parent="CharacterCreator/PlayerPre" groups=["Shoes"]]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(23, 50)
+texture = ExtResource("11_mi3uc")
+region_enabled = true
+region_rect = Rect2(18, 48, 10, 4)
+metadata/_edit_lock_ = true
+
+[node name="Colors" type="VBoxContainer" parent="CharacterCreator"]
+offset_left = 98.0
+offset_top = 88.0
+offset_right = 138.0
+offset_bottom = 448.0
+theme_override_constants/separation = 60
+
+[node name="HairCol" type="Control" parent="CharacterCreator/Colors"]
+layout_mode = 2
+
+[node name="HairColor" type="ColorPickerButton" parent="CharacterCreator/Colors/HairCol"]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 98.0
+offset_bottom = 59.0
+icon_alignment = 1
+edit_alpha = false
+
+[node name="Label" type="Label" parent="CharacterCreator/Colors/HairCol"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = -1.0
+offset_right = 68.0
+offset_bottom = 25.0
+text = "Hair"
+
+[node name="SkinCol" type="Control" parent="CharacterCreator/Colors"]
+layout_mode = 2
+
+[node name="SkinColor" type="ColorPickerButton" parent="CharacterCreator/Colors/SkinCol"]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 98.0
+offset_bottom = 59.0
+icon_alignment = 1
+edit_alpha = false
+
+[node name="Label" type="Label" parent="CharacterCreator/Colors/SkinCol"]
+layout_mode = 0
+offset_left = 30.0
+offset_right = 70.0
+offset_bottom = 26.0
+text = "Skin
+"
+
+[node name="EyeCol" type="Control" parent="CharacterCreator/Colors"]
+layout_mode = 2
+
+[node name="EyeColor" type="ColorPickerButton" parent="CharacterCreator/Colors/EyeCol"]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 98.0
+offset_bottom = 59.0
+icon_alignment = 1
+edit_alpha = false
+
+[node name="Label" type="Label" parent="CharacterCreator/Colors/EyeCol"]
+layout_mode = 0
+offset_left = 33.0
+offset_right = 73.0
+offset_bottom = 52.0
+text = "Eye
+
+"
+
+[node name="ClothesCol" type="Control" parent="CharacterCreator/Colors"]
+layout_mode = 2
+
+[node name="ClothesColor" type="ColorPickerButton" parent="CharacterCreator/Colors/ClothesCol"]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 98.0
+offset_bottom = 59.0
+icon_alignment = 1
+edit_alpha = false
+
+[node name="Label" type="Label" parent="CharacterCreator/Colors/ClothesCol"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 1.0
+offset_right = 76.0
+offset_bottom = 53.0
+text = "Clothes
+
+"
+
+[node name="AccentCol" type="Control" parent="CharacterCreator/Colors"]
+layout_mode = 2
+
+[node name="AccentColor" type="ColorPickerButton" parent="CharacterCreator/Colors/AccentCol"]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 98.0
+offset_bottom = 59.0
+icon_alignment = 1
+edit_alpha = false
+
+[node name="Label" type="Label" parent="CharacterCreator/Colors/AccentCol"]
+layout_mode = 0
+offset_left = 23.0
+offset_right = 76.0
+offset_bottom = 52.0
+text = "Accent
+
+"
+
+[node name="PantsCol" type="Control" parent="CharacterCreator/Colors"]
+layout_mode = 2
+
+[node name="PantsColor" type="ColorPickerButton" parent="CharacterCreator/Colors/PantsCol"]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 98.0
+offset_bottom = 59.0
+icon_alignment = 1
+edit_alpha = false
+
+[node name="Label" type="Label" parent="CharacterCreator/Colors/PantsCol"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 1.0
+offset_right = 70.0
+offset_bottom = 53.0
+text = "Pants
+
+"
+
+[node name="ShoesCol" type="Control" parent="CharacterCreator/Colors"]
+layout_mode = 2
+
+[node name="ShoesColor" type="ColorPickerButton" parent="CharacterCreator/Colors/ShoesCol"]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 98.0
+offset_bottom = 59.0
+icon_alignment = 1
+edit_alpha = false
+
+[node name="Label" type="Label" parent="CharacterCreator/Colors/ShoesCol"]
+layout_mode = 0
+offset_left = 25.0
+offset_right = 71.0
+offset_bottom = 78.0
+text = "Shoes
+
+
+"
+
+[node name="Button" type="Button" parent="CharacterCreator"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = 112.0
+offset_right = 22.0
+offset_bottom = 158.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_irskc")
+text = "PLAY
+"
+
+[node name="Host" type="Button" parent="CharacterCreator"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 95.0
+offset_top = 116.0
+offset_right = 142.0
+offset_bottom = 147.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_irskc")
+text = "Host
+"
+
+[node name="Join" type="Button" parent="CharacterCreator"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.0
+offset_top = 112.0
+offset_right = -95.0
+offset_bottom = 158.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_irskc")
+text = "Join"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CharacterCreator"]
+stream = ExtResource("12_ocvj0")
+autoplay = true
+
+[node name="Address" type="LineEdit" parent="CharacterCreator"]
+offset_left = 845.0
+offset_top = 713.0
+offset_right = 1073.0
+offset_bottom = 744.0
+placeholder_text = "localhost"
+alignment = 1
+
+[node name="Name" type="LineEdit" parent="CharacterCreator"]
+anchors_preset = -1
+anchor_left = 0.44375
+anchor_top = 0.280556
+anchor_right = 0.5625
+anchor_bottom = 0.309259
+placeholder_text = "Name"
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Load" type="CheckButton" parent="CharacterCreator"]
+offset_left = 688.0
+offset_top = 431.0
+offset_right = 780.0
+offset_bottom = 462.0
+text = "LOAD"
+
+[node name="Title" type="Control" parent="CharacterCreator"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 944.0
+offset_top = 130.0
+offset_right = 984.0
+offset_bottom = 170.0
+size_flags_horizontal = 4
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CharacterCreator/Title"]
+layout_mode = 0
+offset_left = -246.0
+offset_top = -78.0
+offset_right = 240.0
+offset_bottom = 64.0
+texture = ExtResource("14_ocd77")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterCreator"]
+libraries = {
+"": SubResource("AnimationLibrary_j17dw")
+}
+
+[connection signal="color_changed" from="CharacterCreator/Colors/HairCol/HairColor" to="CharacterCreator/Hair" method="_on_color_picker_button_color_changed"]
+[connection signal="color_changed" from="CharacterCreator/Colors/SkinCol/SkinColor" to="CharacterCreator/Hair" method="_on_skin_color_color_changed"]
+[connection signal="color_changed" from="CharacterCreator/Colors/EyeCol/EyeColor" to="CharacterCreator/Hair" method="_on_eye_color_color_changed"]
+[connection signal="color_changed" from="CharacterCreator/Colors/ClothesCol/ClothesColor" to="CharacterCreator/Hair" method="_on_clothes_color_color_changed"]
+[connection signal="color_changed" from="CharacterCreator/Colors/AccentCol/AccentColor" to="CharacterCreator/Hair" method="_on_accent_color_color_changed"]
+[connection signal="color_changed" from="CharacterCreator/Colors/PantsCol/PantsColor" to="CharacterCreator/Hair" method="_on_pants_color_color_changed"]
+[connection signal="color_changed" from="CharacterCreator/Colors/ShoesCol/ShoesColor" to="CharacterCreator/Hair" method="_on_shoes_color_color_changed"]
+[connection signal="pressed" from="CharacterCreator/Button" to="CharacterCreator/Hair" method="_on_button_pressed"]
+[connection signal="pressed" from="CharacterCreator/Host" to="CharacterCreator/Hair" method="_on_host_pressed"]
+[connection signal="pressed" from="CharacterCreator/Join" to="CharacterCreator/Hair" method="_on_join_pressed"]

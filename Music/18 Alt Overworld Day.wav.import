@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cohjr724w435j"
+path="res://.godot/imported/18 Alt Overworld Day.wav-2238fb1baa5f6188faca39260bb1d4e6.sample"
+
+[deps]
+
+source_file="res://Music/18 Alt Overworld Day.wav"
+dest_files=["res://.godot/imported/18 Alt Overworld Day.wav-2238fb1baa5f6188faca39260bb1d4e6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
