@@ -1,6 +1,6 @@
 # TERRAWRIA
 This is my godot recreation of terraria.
-It even has awaful online multiplayer!
+It even has awful online multiplayer!
 
 ### Note
 All textures, music files and sounds are excluded from this repo for copyright reasons.
