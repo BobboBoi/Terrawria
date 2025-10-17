@@ -1,6 +1,6 @@
 extends Parallax2D
 
-@onready var cloud = preload("res://Scenes/cloud.tscn")
+@onready var cloud = preload("res://InheritedScenes/Cloud.tscn")
 
 
 func _physics_process(_delta):

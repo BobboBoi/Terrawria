@@ -1,14 +1,16 @@
-extends Node
+extends WorldGenerator
 
-@onready var world : World = get_parent()
+func GetHint(_w : World) -> String:
+	return "Addin Long bois and short bois"
 
-func Start(height = 30):
+func Start(w : World):
+	super(w)
+	
 	var width = world.width
-	var offset :=  0.0
 	var pos = Vector2(0 - float(width)/2,0)
 	
 	for x in range(width):
-		for y in range(height+1):
+		for y in range(world.worldHeight+1):
 			if world.HasTileTag(0,pos,"Grass"):
 				Plant(pos)
 			

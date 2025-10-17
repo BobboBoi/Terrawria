@@ -1,12 +1,12 @@
 extends Control
 
-@onready var slot = preload("res://Scenes/CraftingSlot.tscn")
-@onready var ingredient = preload("res://Scenes/IngredientSlot.tscn")
+@onready var slot = preload("res://InheritedScenes/CraftingSlot.tscn")
+@onready var ingredient = preload("res://InheritedScenes/IngredientSlot.tscn")
 @onready var ingredientContainer = $InCont
 @onready var recipeContainer = $Cont
 @onready var player : Player = $"../../.."
 
-var items : Dictionary = {}
+var items : Dictionary = { }
 var recipeList : Dictionary = { }
 var tagsInRange : Dictionary = {"Hand": null}
 

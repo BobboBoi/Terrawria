@@ -1,4 +1,4 @@
 extends Node
 
-var load:bool = false
-var Name:String = "BobboBoiTheMan/Boi"
+var load := false
+var Name := "BobboBoiTheMan/Boi"

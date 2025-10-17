@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt4w5pjx51yjq"]
+
+[ext_resource type="Texture2D" uid="uid://1kvwbngksl2e" path="res://Sprites/Items/Item_1.png" id="1_6jphd"]
+[ext_resource type="Script" uid="uid://c7bw1nmnwrnqa" path="res://Scripts/InventoryItem.gd" id="2_k8rw6"]
+
+[node name="Item" type="TextureRect"]
+custom_minimum_size = Vector2(40, 40)
+anchors_preset = -1
+anchor_left = 0.491667
+anchor_top = 0.485185
+anchor_right = 0.508333
+anchor_bottom = 0.514815
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_6jphd")
+stretch_mode = 3
+script = ExtResource("2_k8rw6")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+text = "#"
+horizontal_alignment = 2
+vertical_alignment = 2

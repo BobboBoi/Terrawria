@@ -10,11 +10,11 @@ func GetItem():
 	for i in ingredients:
 		for j in inventory.panels:
 			if j.get_child_count() != 0:
-				var item = j.get_child(0)
+				var ci = j.get_child(0)
 				
-				if item.itemId == i[0]:
-					if item.stack > 0:
-						item.stack -= i[1]
+				if ci.itemId == i[0]:
+					if ci.stack > 0:
+						ci.stack -= i[1]
 					else:
 						j.SwapItem(null)
 					break

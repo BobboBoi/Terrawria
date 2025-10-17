@@ -1,12 +1,15 @@
-extends Node
+extends WorldGenerator
 
-@onready var world : World = get_parent()
 @export var curve : Curve = null
 @export var chance := 100
 @export var maxBlobSize := 8
 @export var maxBlobs := 6
 
-func Start():
+func GetHint(_w : World) -> String:
+	return "Addin spaghetti"
+
+func Start(w : World):
+	super(w)
 	#Set world properties
 	var width = world.width
 	var height = world.worldHeight+world.hillHeight
@@ -31,7 +34,7 @@ func Start():
 func MainCave(pos : Vector2):
 	#Setup variables
 	var blobPos := pos
-	var blobDir := 0.0
+	#var blobDir := 0.0
 	
 	var debug = Line2D.new()
 	debug.width = 20
@@ -54,7 +57,7 @@ func MainCave(pos : Vector2):
 
 func SmallBranch(pos : Vector2):
 	var blobPos := pos
-	var blobDir := 0.0
+	#var blobDir := 0.0
 	
 	var debug = Line2D.new()
 	debug.width = 10

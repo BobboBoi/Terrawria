@@ -1,16 +1,19 @@
-extends Node
+extends WorldGenerator
 
-@onready var world : World = get_parent()
 @export var curve : Curve = null
-@export var chance := 600
+@export var chance := 600.
 @export var maxBlobSize := 8
 @export var maxBlobs := 6
 
-func Start():
+func GetHint(_w : World) -> String:
+	return "Imma Stone Luigi!"
+
+func Start(w : World):
+	super(w)
+	
 	#Set world properties
-	var width = world.width
-	var height = world.worldHeight+world.hillHeight
-	var offset :=  0.0
+	var width := world.width
+	var height := world.worldHeight+world.hillHeight
 	var pos := Vector2(0 - float(width)/2,-world.hillHeight)
 	
 	#Go over entire world width
@@ -27,8 +30,8 @@ func Start():
 		pos.y = -world.hillHeight
 
 ##When a succesful spot has been selected place multiple blobs to form a vein
-func TryBlob(y : int,pos : Vector2,height : int):
-	if randi_range(1,chance * (1-curve.sample(float(y)/height)) ) != 1: return
+func TryBlob(y : int, pos : Vector2, height : int):
+	if randi_range(1,roundi(chance * (1.-curve.sample(float(y)/height)))) != 1: return
 	
 	#Setup variables
 	var blobPos := pos

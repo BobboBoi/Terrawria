@@ -3,14 +3,18 @@ class_name Player
 
 @onready var world : World = get_tree().get_first_node_in_group("World")
 @onready var chat = get_tree().get_first_node_in_group("Chat")
-@onready var animation := $AnimationPlayer
+@onready var sprite : PlayerSprite = %Sprite
+@onready var animation := %PlayerAnimation
+@onready var swingAnimation := %SwingAnimation
 @onready var inventory := $Ui/Inventory
-@onready var cam := $Camera2D
+@onready var cam := %Camera
 
 @export var speed : float = 200.0
 @export var Name = "nan"
 
 const jumpPower = -400.0
+
+var itemCooldown := 0
 
 var usable = true
 var inventoryInter := false
@@ -28,25 +32,37 @@ func _enter_tree():
 
 func _ready():
 	visible = false
+	GameTime.Add(TickUpdate)
 	if is_multiplayer_authority():
 		var skin = Saver._load("Player")
-		if skin != null: SetSkin(skin)
+		if skin != null: sprite.SetSkin(skin)
 		
 		$Ui/Inventory/Crafting.refresh()
 		Name = Global.Name
 		cam.enabled = true
 		
-		if !world.done:
+		if !world.worldLoaded:
 			set_physics_process(false)
 			set_process(false)
 			world.DoneGenerating.connect(Activate,CONNECT_ONE_SHOT)
 		else:
 			visible = true
 
-func Activate():
-	visible = true
-	set_physics_process(true)
-	set_process(true)
+func _unhandled_input(event: InputEvent) -> void:
+	for i in range(1,6):
+		if event.is_action_pressed("Hot"+str(i)):
+			HotbarSwap(i)
+			get_window().set_input_as_handled()
+			return
+
+func TickUpdate() -> void:
+	if itemCooldown > 0:
+		itemCooldown -= 1
+
+func _process(_delta: float) -> void:
+	if itemCooldown <= 0:
+		swingAnimation.current_animation = animation.current_animation
+		swingAnimation.seek(animation.current_animation_position)
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
@@ -64,35 +80,23 @@ func _physics_process(delta):
 			var direction = Input.get_axis("left", "right")
 			if direction:
 				animation.play("Walk")
-				$AnimationPlayer.speed_scale = 2*velocity.x/speed*direction
+				animation.speed_scale = 2*velocity.x/speed*direction
+				
 				velocity.x = lerp(velocity.x, direction * speed,0.05)
 				$Sprite.scale.x = direction
 				TryStep(direction)
 			else:
 				animation.play("Idle")
-				$AnimationPlayer.speed_scale = 2*velocity.x/speed*direction
+				animation.speed_scale = 2*velocity.x/speed*direction
 				velocity.x = move_toward(velocity.x, 0, speed)
 			
 			if !is_on_floor():
-				$AnimationPlayer.play("Air")
-			
+				animation.play("Air")
 			
 			if Input.is_action_just_pressed("Inventory"):
-				$Ui/Inventory/Inventory.visible = !$Ui/Inventory/Inventory.visible
-				$Ui/Inventory/Crafting.visible = !$Ui/Inventory/Crafting.visible
+				inventory.ToggleVisible()
+			
 			#Swap Inventory
-			if Input.is_action_just_pressed("Hot1"):
-				HotbarSwap(1)
-			elif Input.is_action_just_pressed("Hot2"):
-				HotbarSwap(2)
-			elif Input.is_action_just_pressed("Hot3"):
-				HotbarSwap(3)
-			elif Input.is_action_just_pressed("Hot4"):
-				HotbarSwap(4)
-			elif Input.is_action_just_pressed("Hot5"):
-				HotbarSwap(5)
-			
-			
 			if Input.is_action_just_pressed("Use"):
 				if inventory.hoveredPanel != null: # block item usage if inventory is used
 					inventoryInter = true
@@ -106,11 +110,11 @@ func _physics_process(delta):
 				if Input.is_action_pressed("Use") and usable and inventory.hoveredPanel == null:
 						Use(currentItem)
 			
-			if Input.is_action_pressed("ZoomIn") and $Camera2D.zoom.x < 2:
-				$Camera2D.zoom = Vector2($Camera2D.zoom.x+0.01,$Camera2D.zoom.y+0.01)
-			elif Input.is_action_pressed("ZoomOut") and $Camera2D.zoom.x > 1:
-				$Camera2D.zoom = Vector2($Camera2D.zoom.x-0.01,$Camera2D.zoom.y-0.01)
-
+			if Input.is_action_pressed("ZoomIn") and cam.zoom.x < 2:
+				cam.zoom = Vector2(cam.zoom.x+0.01,cam.zoom.y+0.01)
+			elif Input.is_action_pressed("ZoomOut") and cam.zoom.x > 1:
+				cam.zoom = Vector2(cam.zoom.x-0.01,cam.zoom.y-0.01)
+	
 	if Input.is_action_just_pressed("Chat"):
 		if $Ui/Chat.visible:
 			Chat($Ui/Chat/Input.text)
@@ -119,6 +123,11 @@ func _physics_process(delta):
 		$Ui/Chat.visible = !$Ui/Chat.visible
 	
 	move_and_slide()
+
+func Activate():
+	visible = true
+	set_physics_process(true)
+	set_process(true)
 
 func HotbarSwap(index : int):
 	if inventory.heldItem != null: return
@@ -144,10 +153,14 @@ func TryStep(direction : int):
 							position.x += direction*4
 
 func Use(usedItem):
-	if usedItem != null:
-		if usedItem.get_child_count() > 1:
-			var itemScript = usedItem.get_node("Script")
-			itemScript.Use(self)
+	if usedItem == null: return
+	if itemCooldown > 0: return
+	
+	if usedItem.get_child_count() > 1:
+		var itemScript = usedItem.get_node("Script")
+		itemScript.Use(self)
+		itemCooldown = itemScript.useTime
+		swingAnimation.play("Swing", -1, float(GameTime.GAME_TICKS)/itemScript.useTime)
 
 func Chat(new_text : String) -> void:
 	if Multiplayer.multi:
@@ -165,27 +178,3 @@ func _on_collection_field_body_entered(body):
 	if body is DroppedItem:
 		if body.target == null:
 			body.collect(self)
-
-func SetSkin(skin):
-	if skin == null: return
-	
-	var hairAnim = $Sprite/Hair.get("sprite_frames")
-	var sprite = load(skin.hair)
-	var height = sprite.get_height()/56
-	
-	for i in range(height):
-		var atlas = AtlasTexture.new()
-		atlas.atlas = sprite
-		atlas.region = Rect2(0,0,40,56)
-		hairAnim.add_frame("default",atlas)
-	
-	$Sprite/Hair.modulate = skin.hairCol
-	$Sprite/Head.modulate = skin.skinCol
-	$Sprite/HandF.modulate = skin.skinCol
-	$Sprite/HandB.modulate = skin.skinCol
-	$Sprite/Pupil.modulate = skin.eyeCol
-	$Sprite/Body.modulate = skin.clothesCol
-	$Sprite/ArmF.modulate = skin.accentCol
-	$Sprite/ArmB.modulate = skin.accentCol
-	$Sprite/Legs.modulate = skin.pantsCol
-	$Sprite/Shoes.modulate = skin.shoesCol

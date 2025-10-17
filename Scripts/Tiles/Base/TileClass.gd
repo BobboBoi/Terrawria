@@ -9,17 +9,17 @@ class_name Tile
 ##The pickaxe power required to destroy this tile.
 @export var hardness := 35
 ##The amount of hp this block has.
-@export var hitPoints := 50
+@export var hitpoints := 50
 ##Tags are used for all sorts of functions.[br]
 ##An example is that a tile with the grass tag can have plants growing on them.
-##Or a tiel with the Mineable tag can be mined with a pickaxe.[br]
+##Or a tile with the Mineable tag can be mined with a pickaxe.[br]
 ##Add your own tags to this list to easily categorize tiles for custom behaviour.
 ##Tags can also have values attached to them for even more customizability.
 @export var tagList : Dictionary = {
 	"Mineable": null,
 }
 
-func Compile(_world : World) -> TileInfo:
+func Compile() -> TileInfo:
 	var newInfo = TileInfo.new()
 	newInfo.id = tileId
 	newInfo.tags = tagList
@@ -27,25 +27,31 @@ func Compile(_world : World) -> TileInfo:
 	newInfo.resource_name = "Tile_"+str(tileId)
 	return newInfo
 
-func Destroy(player : Player,pos : Vector2i) -> void:
+func Destroy(player : Player, pos : Vector2i) -> void:
 	Destroyed(player,pos)
 
 ##Called when block is destroyed.[br]
 ##Override this function to create a custom destroy behaviour
-func Destroyed(player : Player,pos : Vector2i) -> void:
+func Destroyed(player : Player, pos : Vector2i) -> void:
 	Erase(player.world,pos)
 
+func Damage(player : Player, pos : Vector2i, dmg : float) -> void:
+	Damaged(player, pos, dmg)
+
+func Damaged(_player : Player, _pos : Vector2i, _dmg : float) -> void:
+	pass
+
 ##Delete tile from world and update surrounding tiles
-func Erase(world : World,pos : Vector2i):
+func Erase(world : World, pos : Vector2i):
 	world.erase_cell(0,pos)
 	world._TileUpdate(pos,0,true)
 
-func Update(world : World,pos : Vector2i) -> void:
+func Update(world : World, pos : Vector2i) -> void:
 	Updated(world,pos)
 
 ##Called when a block update is called.[br]
 ##Override this function to create a custom update behaviour
-func Updated(world : World,pos : Vector2i) -> void:
+func Updated(world : World, pos : Vector2i) -> void:
 	Connect(world,pos)
 
 #Yandere dev moment comming up
@@ -54,11 +60,11 @@ func Updated(world : World,pos : Vector2i) -> void:
 #region horror
 ##Default connecting tile check code.[br]
 ##Checks for surrounding air to change tile atlas.
-func Connect(world : World,pos : Vector2i) -> void:
-	var surr = world.getDaBois(pos,0)
+func Connect(world : World, pos : Vector2i) -> void:
+	var surr = world.GetDaBois(pos,0)
 	var id = tileId
 	var rand = randi_range(0,2)
-	var block = world.bois(surr)
+	var block = world.Bois(surr)
 	#index 4 is current tile
 	#0 1 2
 	#3 4 5
@@ -117,13 +123,13 @@ func Connect(world : World,pos : Vector2i) -> void:
 ##@experimental
 ##Default interconnecting tile check code.[br]
 ##Checks for surrounding tile of type to change tile atlas.
-func InterConnect(world : World,pos : Vector2i,type : int) -> bool:
-	var surr = world.getDaBois(pos,0)
+func InterConnect(world : World, pos : Vector2i, type : int) -> bool:
+	var surr = world.GetDaBois(pos,0)
 	var id = tileId
 	var rand = randi_range(0,2)
 	
-	var block := world.bois(surr) #true if block
-	var alt := world.bois(surr,type) #true if alt
+	var block := world.Bois(surr) #true if block
+	var alt := world.Bois(surr,type) #true if alt
 	
 	
 	#index 4 is current tile

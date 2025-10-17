@@ -1,0 +1,276 @@
+[gd_scene load_steps=19 format=3 uid="uid://dqwcir68ui3j2"]
+
+[ext_resource type="Script" uid="uid://v0ffib0l1l28" path="res://Scripts/Music.gd" id="1_i05qg"]
+[ext_resource type="Texture2D" uid="uid://dmnhgne0m00pw" path="res://Sprites/Grass.png" id="1_m8hk8"]
+[ext_resource type="Script" uid="uid://jsdhxkyypoya" path="res://Scripts/TileMap2.gd" id="3_qn651"]
+[ext_resource type="PackedScene" uid="uid://dndckigkx85h1" path="res://Scenes/World.tscn" id="4_c15yi"]
+[ext_resource type="Texture2D" uid="uid://0um54y3xmh1i" path="res://Sprites/Backgrounds/Background_0.png" id="7_57bg2"]
+[ext_resource type="AudioStream" uid="uid://d2gj272gqh4ct" path="res://Music/Loadin.mp3" id="8_nwox0"]
+[ext_resource type="Texture2D" uid="uid://d3uy5ekngqe8r" path="res://Sprites/Backgrounds/Background_7.png" id="8_ygpcx"]
+[ext_resource type="Texture2D" uid="uid://cdmahlhhcsyyr" path="res://Sprites/Backgrounds/Background_8.png" id="9_mxjm6"]
+[ext_resource type="Texture2D" uid="uid://c4tiqg4voi7g0" path="res://Sprites/Backgrounds/Background_9.png" id="10_epcf3"]
+[ext_resource type="Texture2D" uid="uid://4cxv1mqba47x" path="res://Sprites/Backgrounds/Background_10.png" id="11_f3i86"]
+[ext_resource type="Texture2D" uid="uid://dba7eenb2xoo8" path="res://Sprites/Backgrounds/Background_66.png" id="12_1cgci"]
+[ext_resource type="Texture2D" uid="uid://gq7slbajhaht" path="res://Sprites/Backgrounds/Background_11.png" id="12_5pvks"]
+[ext_resource type="Texture2D" uid="uid://k0v1048ebtds" path="res://Sprites/Backgrounds/Background_67.png" id="13_gfj0w"]
+[ext_resource type="Script" uid="uid://q3dk0723r36u" path="res://Scripts/CloudLayer.gd" id="13_guiev"]
+[ext_resource type="Script" uid="uid://ceiayhpw38rgx" path="res://Scripts/CustomParrallax.gd" id="14_6piiu"]
+
+[sub_resource type="Environment" id="Environment_hlq2g"]
+background_mode = 3
+glow_enabled = true
+glow_hdr_threshold = 1.5
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k4chr"]
+resource_name = "Grass"
+texture = ExtResource("1_m8hk8")
+separation = Vector2i(1, 1)
+0:0/0 = 0
+0:0/0/terrain_set = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+1:1/next_alternative_id = 4
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/1 = 1
+1:1/1/terrain_set = 0
+1:1/2 = 2
+1:1/2/terrain_set = 0
+1:1/3 = 3
+1:1/3/terrain_set = 0
+2:0/next_alternative_id = 3
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:1/0 = 0
+2:1/0/terrain_set = 0
+
+[sub_resource type="TileSet" id="TileSet_k7yvu"]
+physics_layer_0/collision_layer = 0
+physics_layer_0/collision_mask = 0
+terrain_set_0/mode = 1
+terrain_set_0/terrain_0/name = "Grass"
+terrain_set_0/terrain_0/color = Color(0, 0.545098, 0, 1)
+sources/1 = SubResource("TileSetAtlasSource_k4chr")
+
+[node name="Generation" type="Node2D"]
+script = ExtResource("1_i05qg")
+metadata/_edit_vertical_guides_ = []
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hlq2g")
+
+[node name="TileMap2" type="TileMap" parent="."]
+modulate = Color(1, 1, 1, 0.372549)
+texture_filter = 1
+texture_repeat = 1
+tile_set = SubResource("TileSet_k7yvu")
+format = 2
+layer_0/name = "MAIN"
+layer_1/name = "BG"
+layer_1/z_index = -1
+script = ExtResource("3_qn651")
+
+[node name="World" parent="." instance=ExtResource("4_c15yi")]
+
+[node name="Entities" type="Node2D" parent="."]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("8_nwox0")
+autoplay = true
+
+[node name="ParallaxBackground" type="Node2D" parent="."]
+z_index = -50
+
+[node name="Sky" type="Parallax2D" parent="ParallaxBackground"]
+scroll_scale = Vector2(0, 0.1)
+script = ExtResource("13_guiev")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Sky"]
+texture_repeat = 2
+position = Vector2(960, 88)
+scale = Vector2(40, 1)
+texture = ExtResource("7_57bg2")
+
+[node name="ParallaxLayer2" type="Parallax2D" parent="ParallaxBackground"]
+scroll_scale = Vector2(0.2, 0.2)
+repeat_size = Vector2(2048, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+texture_repeat = 2
+position = Vector2(1024, 349)
+scale = Vector2(2, 2)
+texture = ExtResource("8_ygpcx")
+offset = Vector2(0, -50)
+
+[node name="CloudLayer" type="Parallax2D" parent="ParallaxBackground"]
+process_priority = 1
+scroll_scale = Vector2(0.225, 0.225)
+script = ExtResource("13_guiev")
+
+[node name="ParallaxLayer3" type="Parallax2D" parent="ParallaxBackground"]
+scroll_scale = Vector2(0.25, 0.25)
+repeat_size = Vector2(2048, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+texture_repeat = 2
+position = Vector2(1024, 349)
+scale = Vector2(2, 2)
+texture = ExtResource("9_mxjm6")
+offset = Vector2(0, -50)
+
+[node name="ParallaxLayer4" type="Parallax2D" parent="ParallaxBackground"]
+scroll_scale = Vector2(0.3, 0.3)
+repeat_size = Vector2(2048, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+texture_repeat = 2
+position = Vector2(1024, 349)
+scale = Vector2(2, 2)
+texture = ExtResource("10_epcf3")
+
+[node name="ParallaxLayer5" type="Parallax2D" parent="ParallaxBackground"]
+scroll_scale = Vector2(0.35, 0.35)
+repeat_size = Vector2(2048, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
+texture_repeat = 2
+position = Vector2(1024, 349)
+scale = Vector2(2, 2)
+texture = ExtResource("11_f3i86")
+
+[node name="ParallaxLayer6" type="Parallax2D" parent="ParallaxBackground"]
+scroll_scale = Vector2(0.4, 0.4)
+repeat_size = Vector2(2048, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6"]
+texture_repeat = 2
+position = Vector2(1024, 349)
+scale = Vector2(2, 2)
+texture = ExtResource("12_5pvks")
+offset = Vector2(0, 100)
+
+[node name="CavernsBG" type="Node2D" parent="."]
+z_index = -49
+
+[node name="CustomParrallax" type="CanvasGroup" parent="CavernsBG"]
+script = ExtResource("14_6piiu")
+scrollScale = 0.8
+limitStart = Vector2(-1e+07, 500)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CavernsBG/CustomParrallax"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(2, 2)
+theme_override_constants/separation = -32
+
+[node name="TextureRect" type="TextureRect" parent="CavernsBG/CustomParrallax/HBoxContainer"]
+custom_minimum_size = Vector2(160, 624)
+layout_mode = 2
+texture = ExtResource("13_gfj0w")
+stretch_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="CavernsBG/CustomParrallax/HBoxContainer"]
+custom_minimum_size = Vector2(160, 624)
+layout_mode = 2
+texture = ExtResource("13_gfj0w")
+stretch_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="CavernsBG/CustomParrallax/HBoxContainer"]
+custom_minimum_size = Vector2(160, 624)
+layout_mode = 2
+texture = ExtResource("13_gfj0w")
+stretch_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="CavernsBG/CustomParrallax/HBoxContainer"]
+custom_minimum_size = Vector2(160, 624)
+layout_mode = 2
+texture = ExtResource("13_gfj0w")
+stretch_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="CavernsBG/CustomParrallax/HBoxContainer"]
+custom_minimum_size = Vector2(160, 624)
+layout_mode = 2
+texture = ExtResource("13_gfj0w")
+stretch_mode = 1
+
+[node name="TextureRect6" type="TextureRect" parent="CavernsBG/CustomParrallax/HBoxContainer"]
+custom_minimum_size = Vector2(160, 624)
+layout_mode = 2
+texture = ExtResource("13_gfj0w")
+stretch_mode = 1
+
+[node name="TextureRect7" type="TextureRect" parent="CavernsBG/CustomParrallax/HBoxContainer"]
+custom_minimum_size = Vector2(160, 624)
+layout_mode = 2
+texture = ExtResource("13_gfj0w")
+stretch_mode = 1
+
+[node name="TextureRect8" type="TextureRect" parent="CavernsBG/CustomParrallax/HBoxContainer"]
+custom_minimum_size = Vector2(160, 624)
+layout_mode = 2
+texture = ExtResource("13_gfj0w")
+stretch_mode = 1
+
+[node name="CustomParrallax2" type="CanvasGroup" parent="CavernsBG"]
+script = ExtResource("14_6piiu")
+scrollScale = 0.8
+repeatSize = Vector2(256, 0)
+limitStart = Vector2(-1e+07, 644)
+limitEnd = Vector2(1e+07, 644)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CavernsBG/CustomParrallax2"]
+offset_right = 1056.0
+offset_bottom = 16.0
+scale = Vector2(2, 2)
+theme_override_constants/separation = -32
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CavernsBG/CustomParrallax2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_1cgci")
+stretch_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="CavernsBG/CustomParrallax2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_1cgci")
+stretch_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="CavernsBG/CustomParrallax2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_1cgci")
+stretch_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="CavernsBG/CustomParrallax2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_1cgci")
+stretch_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="CavernsBG/CustomParrallax2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_1cgci")
+stretch_mode = 1
+
+[node name="TextureRect6" type="TextureRect" parent="CavernsBG/CustomParrallax2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_1cgci")
+stretch_mode = 1
+
+[node name="TextureRect7" type="TextureRect" parent="CavernsBG/CustomParrallax2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_1cgci")
+stretch_mode = 1
+
+[node name="TextureRect8" type="TextureRect" parent="CavernsBG/CustomParrallax2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_1cgci")
+stretch_mode = 1
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." groups=["Multiplayer"]]
+process_priority = 1
+_spawnable_scenes = PackedStringArray("uid://da1ihr8cng1bq", "uid://dndckigkx85h1")
+spawn_path = NodePath("..")
+
+[connection signal="finished" from="Music" to="." method="_on_music_finished"]

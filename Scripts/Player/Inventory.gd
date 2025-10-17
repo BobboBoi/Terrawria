@@ -92,3 +92,7 @@ func addItem(item : InventoryItem):
 		item = empty.SwapItem(item)
 	
 	crafter.refresh()
+
+func ToggleVisible() -> void:
+	$Inventory.visible = !$Inventory.visible
+	$Crafting.visible = !$Crafting.visible

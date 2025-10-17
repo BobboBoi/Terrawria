@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://dndckigkx85h1"]
+[gd_scene load_steps=47 format=3 uid="uid://dndckigkx85h1"]
 
 [ext_resource type="Texture2D" uid="uid://bnikrtwjn37hl" path="res://Sprites/Tiles_0.png" id="1_nu008"]
 [ext_resource type="Texture2D" uid="uid://k3hw8qet1uv2" path="res://Sprites/Tiles/Tiles_1.png" id="2_8q77v"]
@@ -6,22 +6,25 @@
 [ext_resource type="Texture2D" uid="uid://dxhw548e4wep" path="res://Sprites/Tiles/Tiles_3.png" id="3_js6no"]
 [ext_resource type="Texture2D" uid="uid://sv4kilrgb8sf" path="res://Sprites/Tiles/Tiles_18.png" id="3_q3bgb"]
 [ext_resource type="Texture2D" uid="uid://bvb5hfiw5m38o" path="res://Sprites/Tiles/Tiles_17.png" id="3_xb0qu"]
-[ext_resource type="Script" path="res://Scripts/World.gd" id="4_8uuob"]
+[ext_resource type="Script" uid="uid://pdntxwkyuqdr" path="res://Scripts/World.gd" id="4_8uuob"]
 [ext_resource type="Texture2D" uid="uid://ct6fohwc4juca" path="res://Sprites/Tiles/Tiles_30.png" id="5_1ksdk"]
 [ext_resource type="Texture2D" uid="uid://cwxubm7k22d7e" path="res://Sprites/Tiles/Tiles_5.png" id="5_a01mk"]
 [ext_resource type="Texture2D" uid="uid://dgwbs0xk8lauh" path="res://Sprites/Walls/Wall_1.png" id="5_pdxl8"]
 [ext_resource type="Texture2D" uid="uid://d2pymgkdpvbja" path="res://Sprites/Tiles/Tiles_239.png" id="5_t5ott"]
 [ext_resource type="Texture2D" uid="uid://b8gp5n8aanb40" path="res://Sprites/TreeTops/Tree_Tops_0.png" id="6_a8qj4"]
 [ext_resource type="Texture2D" uid="uid://coapxgrm7wnh2" path="res://Sprites/Walls/Wall_4.png" id="7_e47do"]
-[ext_resource type="Script" path="res://Scripts/WorldGen/TreeGen.gd" id="11_6wk26"]
-[ext_resource type="Script" path="res://Scripts/Tiles/Base/TileCompiler.gd" id="11_onojg"]
+[ext_resource type="Script" uid="uid://lnfdafti5c6j" path="res://Scripts/WorldGen/TreeGen.gd" id="11_6wk26"]
+[ext_resource type="Script" uid="uid://dae6i7xhkvt1q" path="res://Scripts/Tiles/Base/TileCompiler.gd" id="11_onojg"]
 [ext_resource type="Texture2D" uid="uid://c227k2wn88pn4" path="res://Sprites/Tiles/Tiles_7.png" id="11_qfvsi"]
-[ext_resource type="Script" path="res://Scripts/WorldGen/GrassGen.gd" id="11_rch60"]
-[ext_resource type="Script" path="res://Scripts/WorldGen/CaveGen.gd" id="12_d0ae8"]
-[ext_resource type="Script" path="res://Scripts/WorldGen/StoneGen.gd" id="12_ln8ni"]
-[ext_resource type="Script" path="res://Scripts/PlayerController.gd" id="14_e7f75"]
-[ext_resource type="Script" path="res://Scripts/Player/Chat.gd" id="14_xumn6"]
-[ext_resource type="Script" path="res://Scripts/WorldGen/CopperGen.gd" id="18_4pr1t"]
+[ext_resource type="Script" uid="uid://b82p6358hale3" path="res://Scripts/WorldGen/GrassGen.gd" id="11_rch60"]
+[ext_resource type="Script" uid="uid://bsjkvqpj67yh" path="res://Scripts/WorldGen/CaveGen.gd" id="12_d0ae8"]
+[ext_resource type="Script" uid="uid://dqn6qvmtclp63" path="res://Scripts/WorldGen/StoneGen.gd" id="12_ln8ni"]
+[ext_resource type="Script" uid="uid://cn41xfybpmidf" path="res://Scripts/PlayerController.gd" id="14_e7f75"]
+[ext_resource type="Script" uid="uid://chqr0f5s1ei5s" path="res://Scripts/Player/Chat.gd" id="14_xumn6"]
+[ext_resource type="Script" uid="uid://7o65xi75j3s2" path="res://Scripts/WorldGen/CopperGen.gd" id="18_4pr1t"]
+[ext_resource type="AudioStream" uid="uid://bwi2w7l3p0cwi" path="res://Sounds/Dig_0.wav" id="23_l11rc"]
+[ext_resource type="AudioStream" uid="uid://qjljpek5ye2q" path="res://Sounds/Dig_1.wav" id="24_w86vl"]
+[ext_resource type="AudioStream" uid="uid://8o6fv04jft4j" path="res://Sounds/Dig_2.wav" id="25_33kev"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ckndh"]
 texture = ExtResource("1_nu008")
@@ -9583,7 +9586,7 @@ sources/239 = SubResource("TileSetAtlasSource_d7ciw")
 sources/17 = SubResource("TileSetAtlasSource_nkbdf")
 
 [sub_resource type="Curve" id="Curve_g8ve6"]
-max_value = 0.2
+_limits = [0.0, 0.2, 0.0, 1.0]
 _data = [Vector2(0, 0.0395604), 0.0, 0.0, 0, 0, Vector2(0.278351, 0.2), 0.0, 0.0, 0, 0, Vector2(1, 0.0373626), 0.124333, 0.0, 0, 0]
 point_count = 3
 
@@ -9607,6 +9610,12 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.8, 0.8, 0.8, 0)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_g01fq"]
+streams_count = 3
+stream_0/stream = ExtResource("23_l11rc")
+stream_1/stream = ExtResource("24_w86vl")
+stream_2/stream = ExtResource("25_33kev")
+
 [node name="World" type="TileMap" groups=["World"]]
 process_mode = 3
 texture_filter = 1
@@ -9621,35 +9630,38 @@ curve = SubResource("Curve_g8ve6")
 width = 960
 hillHeight = 60
 
-[node name="PlayerController" type="Node2D" parent="."]
-script = ExtResource("14_e7f75")
+[node name="Generation" type="Node" parent="."]
+unique_name_in_owner = true
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="PlayerController"]
-_spawnable_scenes = PackedStringArray("res://player.tscn")
-spawn_path = NodePath("..")
-
-[node name="TileComp" type="Node" parent="."]
+[node name="TileComp" type="Node" parent="Generation"]
+unique_name_in_owner = true
 script = ExtResource("11_onojg")
 
-[node name="GrassGen" type="Node" parent="."]
+[node name="GrassGen" type="Node" parent="Generation"]
 script = ExtResource("11_rch60")
 
-[node name="CaveGen" type="Node" parent="."]
+[node name="CaveGen" type="Node" parent="Generation"]
 script = ExtResource("12_d0ae8")
 chance = 150
 maxBlobSize = 20
 maxBlobs = 40
 
-[node name="StoneGen" type="Node" parent="."]
+[node name="StoneGen" type="Node" parent="Generation"]
 script = ExtResource("12_ln8ni")
 curve = SubResource("Curve_1knuy")
 
-[node name="CopperGen" type="Node" parent="."]
+[node name="CopperGen" type="Node" parent="Generation"]
 script = ExtResource("18_4pr1t")
 curve = SubResource("Curve_1knuy")
 
-[node name="TreeGen" type="Node" parent="."]
+[node name="TreeGen" type="Node" parent="Generation"]
 script = ExtResource("11_6wk26")
+
+[node name="PlayerController" type="Node2D" parent="."]
+script = ExtResource("14_e7f75")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="PlayerController"]
+spawn_path = NodePath("..")
 
 [node name="LoadingScreen" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -9679,6 +9691,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 
 [node name="Progress" type="ProgressBar" parent="LoadingScreen/Bar"]
+unique_name_in_owner = true
 process_mode = 3
 layout_mode = 1
 anchors_preset = 8
@@ -9697,6 +9710,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_3ipc6")
 show_percentage = false
 
 [node name="DumbCrap" type="Label" parent="LoadingScreen/Bar"]
+unique_name_in_owner = true
 process_mode = 3
 layout_mode = 1
 anchors_preset = 8
@@ -9722,3 +9736,7 @@ offset_bottom = 1049.0
 text = "#TEXT#"
 vertical_alignment = 2
 script = ExtResource("14_xumn6")
+
+[node name="DigSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_g01fq")

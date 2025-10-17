@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cmpc7skbgcsob"]
 
-[ext_resource type="Script" path="res://Scripts/DroppedItem.gd" id="1_jp31l"]
-[ext_resource type="PackedScene" uid="uid://bt4w5pjx51yjq" path="res://Scenes/Items/Item.tscn" id="2_waq1j"]
+[ext_resource type="Script" uid="uid://wsdx1fmfp8q5" path="res://Scripts/DroppedItem.gd" id="1_jp31l"]
+[ext_resource type="PackedScene" uid="uid://bt4w5pjx51yjq" path="res://InheritedScenes/Item.tscn" id="2_waq1j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n1g2e"]
 radius = 8.06226

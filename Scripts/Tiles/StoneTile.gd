@@ -4,6 +4,7 @@ var item = "res://Scripts/Items/StoneItem.gd"
 
 func _init():
 	tileId = 1
+	hitpoints = 100
 	tagList["Stone"] = null
 
 func Destroyed(player : Player,pos : Vector2i) -> void:

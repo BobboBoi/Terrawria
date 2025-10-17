@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bpum8b1i7fwlv"]
+
+[ext_resource type="Texture2D" uid="uid://bpcl6e832hyx6" path="res://Sprites/Ui/Inventory_Back.png" id="1_enp1a"]
+[ext_resource type="Script" uid="uid://6mi4rps2445a" path="res://Scripts/Player/CraftingSlot.gd" id="2_aw3qy"]
+[ext_resource type="PackedScene" uid="uid://bt4w5pjx51yjq" path="res://InheritedScenes/Item.tscn" id="3_qkyug"]
+[ext_resource type="Texture2D" uid="uid://bnssr1t7bpbo2" path="res://Sprites/Items/Item_2.png" id="4_2oad3"]
+
+[node name="Panel1" type="TextureRect"]
+custom_minimum_size = Vector2(40, 40)
+texture = ExtResource("1_enp1a")
+expand_mode = 1
+script = ExtResource("2_aw3qy")
+
+[node name="Item" parent="." instance=ExtResource("3_qkyug")]
+layout_mode = 1
+anchor_left = -0.1
+anchor_top = -0.1
+anchor_right = 0.1
+anchor_bottom = 0.1
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 36.0
+offset_bottom = 36.0
+grow_horizontal = 1
+grow_vertical = 1
+texture = ExtResource("4_2oad3")
+type = "Block"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
